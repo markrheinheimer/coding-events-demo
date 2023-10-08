@@ -1,8 +1,6 @@
 package org.launchcode.codingevents.models;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.Objects;
 
 /**
@@ -24,17 +22,43 @@ public class Event {
     @Email(message = "Invalid email. Try again.")
     private String contactEmail;
 
-    public Event(String name, String description, String contactEmail) {
-        this();
+    @NotNull(message = "Please enter a location")
+    @NotBlank(message = "Location can not be blank")
+    private String location;
+
+    private Boolean mustRegister = true;
+
+    @Min(value = 1, message = "Must have at least one person attending")
+    private int numberOfAttendees;
+
+    public Event(String name, String description, String contactEmail, String location, Boolean mustRegister, int numberOfAttendees) {
         this.name = name;
         this.description = description;
         this.contactEmail = contactEmail;
-    }
-
-    public Event() {
+        this.location = location;
         this.id = nextId;
+        this.mustRegister = mustRegister;
+        this.numberOfAttendees = numberOfAttendees;
         nextId++;
     }
+
+    public Boolean getMustRegister() {
+        return mustRegister;
+    }
+
+    public void setMustRegister(Boolean mustRegister) {
+        this.mustRegister = mustRegister;
+    }
+
+    public int getNumberOfAttendees() {
+        return numberOfAttendees;
+    }
+
+    public void setNumberOfAttendees(int numberOfAttendees) {
+        this.numberOfAttendees = numberOfAttendees;
+    }
+
+    public Event() {}
 
     public String getName() {
         return name;
@@ -62,6 +86,14 @@ public class Event {
 
     public int getId() {
         return id;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     @Override
