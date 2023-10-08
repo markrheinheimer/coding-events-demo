@@ -31,15 +31,30 @@ public class Event {
     @Min(value = 1, message = "Must have at least one person attending")
     private int numberOfAttendees;
 
-    public Event(String name, String description, String contactEmail, String location, Boolean mustRegister, int numberOfAttendees) {
+    private EventType type;
+
+    public Event(String name, String description, String contactEmail, String location, Boolean mustRegister, int numberOfAttendees, EventType type) {
+        this();
         this.name = name;
         this.description = description;
         this.contactEmail = contactEmail;
         this.location = location;
-        this.id = nextId;
         this.mustRegister = mustRegister;
         this.numberOfAttendees = numberOfAttendees;
+        this.type = type;
+    }
+
+    public Event() {
+        this.id = nextId;
         nextId++;
+    }
+
+    public EventType getType() {
+        return type;
+    }
+
+    public void setType(EventType type) {
+        this.type = type;
     }
 
     public Boolean getMustRegister() {
@@ -57,8 +72,6 @@ public class Event {
     public void setNumberOfAttendees(int numberOfAttendees) {
         this.numberOfAttendees = numberOfAttendees;
     }
-
-    public Event() {}
 
     public String getName() {
         return name;
